@@ -1,0 +1,6 @@
+{
+  "name": "Digital Signs | Academy - Online Examination",
+  "description": "Official online examination portal for Digital Signs | Academy - Digital Marketing Batch 02 Chapter 01 Examination (Canva & Graphic Design).",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
