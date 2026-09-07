@@ -141,8 +141,8 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
               <Award className="w-5 h-5" />
             </div>
             <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Total Marks</span>
-            <span className="text-base sm:text-lg font-bold text-slate-800">50 Marks</span>
-            <span className="text-[11px] text-slate-400">15 MCQ + 35 Manual</span>
+            <span className="text-base sm:text-lg font-bold text-slate-800">{EXAM_METADATA.totalMarks} Marks</span>
+            <span className="text-[11px] text-slate-400">{EXAM_METADATA.objectiveMarks} MCQ + {EXAM_METADATA.manualMarks} Manual</span>
           </div>
 
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex flex-col items-center text-center">
@@ -150,8 +150,8 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
               <HelpCircle className="w-5 h-5" />
             </div>
             <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Questions</span>
-            <span className="text-base sm:text-lg font-bold text-slate-800">22 Questions</span>
-            <span className="text-[11px] text-slate-400">+ Practical Task</span>
+            <span className="text-base sm:text-lg font-bold text-slate-800">{EXAM_METADATA.totalQuestions} Questions</span>
+            <span className="text-[11px] text-slate-400">+ Cafe Crave Project</span>
           </div>
 
           <div className="bg-white p-4 rounded-xl border border-slate-200 shadow-2xs flex flex-col items-center text-center">

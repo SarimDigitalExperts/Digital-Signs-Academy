@@ -118,24 +118,24 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ session }) => {
                   Objective Score (MCQs)
                 </span>
                 <div className="text-3xl sm:text-4xl font-black text-blue-900 mt-1">
-                  {objectiveScore} <span className="text-lg font-bold text-blue-600">/ 15</span>
+                  {objectiveScore} <span className="text-lg font-bold text-blue-600">/ {EXAM_METADATA.objectiveMarks}</span>
                 </div>
                 <span className="text-xs text-blue-700 mt-1 block">
-                  Automatically Graded &bull; Section A
+                  Automatically Graded &bull; Section A (25 MCQs)
                 </span>
               </div>
 
               {/* Manual Evaluation Box */}
               <div className="p-5 rounded-xl bg-amber-50 border border-amber-200 text-center">
                 <span className="text-xs uppercase font-bold text-amber-800 tracking-wider block">
-                  Subjective &amp; Practical
+                  Subjective &amp; Practical Project
                 </span>
                 <div className="text-2xl sm:text-3xl font-extrabold text-amber-900 mt-1.5 flex items-center justify-center gap-1.5">
                   <AlertCircle className="w-6 h-6 text-amber-600" />
                   <span>Pending</span>
                 </div>
                 <span className="text-xs text-amber-700 mt-1 block">
-                  35 Marks Under Manual Review
+                  {EXAM_METADATA.manualMarks} Marks Under Manual Review
                 </span>
               </div>
             </div>
@@ -147,7 +147,7 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ session }) => {
                   Total Final Score:
                 </span>
                 <span className="text-sm sm:text-base font-bold text-slate-800">
-                  Pending Manual Evaluation (Max 50 Marks)
+                  Pending Manual Evaluation (Max {EXAM_METADATA.totalMarks} Marks)
                 </span>
               </div>
               <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white text-slate-700 border border-slate-200">
@@ -159,7 +159,7 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ session }) => {
             <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 flex items-start gap-3 text-xs sm:text-sm text-slate-600">
               <Sparkles className="w-5 h-5 text-orange-500 shrink-0 mt-0.5" />
               <div>
-                <strong className="text-slate-900">Manual Evaluation Notice:</strong> Your short questions (15 marks), application questions (10 marks), and Canva practical task (10 marks) will be thoroughly reviewed by the course instructor. Final results will be notified via email or your academy batch group.
+                <strong className="text-slate-900">Manual Evaluation Notice:</strong> Your short questions ({EXAM_METADATA.marksBreakdown.short} marks), application questions ({EXAM_METADATA.marksBreakdown.application} marks), and Restaurant &ldquo;Cafe Crave&rdquo; practical website + app project ({EXAM_METADATA.marksBreakdown.practical} marks) will be thoroughly reviewed and graded by the course instructor. Final results will be notified via email or your academy batch group.
               </div>
             </div>
           </div>

@@ -237,6 +237,21 @@ export default function App() {
     }));
   };
 
+  // Handle Practical Task GitHub repo link change
+  const handlePracticalGithubChange = (link: string) => {
+    setSession((prev) => ({
+      ...prev,
+      answers: {
+        ...prev.answers,
+        practical: {
+          ...prev.answers.practical,
+          githubRepoLink: link,
+        },
+      },
+      lastSavedAt: Date.now(),
+    }));
+  };
+
   // Handle Practical Task notes change
   const handlePracticalNotesChange = (notes: string) => {
     setSession((prev) => ({
@@ -494,7 +509,7 @@ export default function App() {
                       ? 'Section B'
                       : currentQuestion.type === 'application'
                       ? 'Section C'
-                      : 'Practical Task'}
+                      : 'Section D — Practical Task'}
                   </span>
                   <span className="text-slate-400 text-lg">/</span>
                   <span className="text-xs sm:text-sm font-semibold text-slate-500">
@@ -504,7 +519,7 @@ export default function App() {
                       ? 'Short Answer Questions'
                       : currentQuestion.type === 'application'
                       ? 'Practical Application Question'
-                      : 'Canva Graphic Design Task'}
+                      : 'Restaurant "Cafe Crave" Website & App Project'}
                   </span>
                   <span className="ml-auto text-xs font-bold text-slate-400">
                     {currentQuestion.marks} {currentQuestion.marks === 1 ? 'Mark' : 'Marks'}
@@ -544,8 +559,10 @@ export default function App() {
                       <PracticalTask
                         question={currentQuestion}
                         canvaLink={session.answers.practical.canvaDesignLink}
+                        githubLink={session.answers.practical.githubRepoLink}
                         notes={session.answers.practical.designNotes}
                         onLinkChange={handlePracticalLinkChange}
+                        onGithubLinkChange={handlePracticalGithubChange}
                         onNotesChange={handlePracticalNotesChange}
                       />
                     )}

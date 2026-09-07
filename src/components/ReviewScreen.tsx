@@ -158,28 +158,28 @@ export const ReviewScreen: React.FC<ReviewScreenProps> = ({
         <div className="bg-white p-4 rounded-xl border border-slate-200 text-center shadow-2xs">
           <span className="text-xs text-slate-400 uppercase font-semibold block">Section Breakdown</span>
           <div className="text-xs text-slate-700 mt-1 font-medium space-y-0.5">
-            <div>MCQs: <strong className="text-slate-900">{stats.mcqAnswered} / 15</strong></div>
-            <div>Short: <strong className="text-slate-900">{stats.shortAnswered} / 5</strong></div>
-            <div>App: <strong className="text-slate-900">{stats.applicationAnswered} / 2</strong></div>
+            <div>MCQs: <strong className="text-slate-900">{stats.mcqAnswered} / {stats.mcqTotal}</strong></div>
+            <div>Short: <strong className="text-slate-900">{stats.shortAnswered} / {stats.shortTotal}</strong></div>
+            <div>App: <strong className="text-slate-900">{stats.applicationAnswered} / {stats.applicationTotal}</strong></div>
           </div>
         </div>
 
         <div className="bg-white p-4 rounded-xl border border-slate-200 text-center shadow-2xs">
-          <span className="text-xs text-slate-400 uppercase font-semibold block">Practical Task</span>
+          <span className="text-xs text-slate-400 uppercase font-semibold block">Practical Project</span>
           <div className="mt-1">
             {stats.practicalAnswered > 0 ? (
               <span className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200">
                 <CheckCircle className="w-3.5 h-3.5" />
-                <span>Link Provided</span>
+                <span>URL Submitted</span>
               </span>
             ) : (
               <span className="inline-flex items-center gap-1 text-xs font-bold text-amber-800 bg-amber-50 px-2.5 py-1 rounded-full border border-amber-200">
                 <AlertCircle className="w-3.5 h-3.5" />
-                <span>No Link</span>
+                <span>No URL</span>
               </span>
             )}
           </div>
-          <span className="text-[11px] text-slate-400 block mt-1">10 Marks Task</span>
+          <span className="text-[11px] text-orange-600 font-bold block mt-1">100 Marks Task</span>
         </div>
       </div>
 
@@ -281,11 +281,11 @@ export const ReviewScreen: React.FC<ReviewScreenProps> = ({
 
                       {q.type === 'practical' && (
                         answers.practical.canvaDesignLink ? (
-                          <span className="text-purple-700 font-mono text-[11px] truncate block">
-                            Link: {answers.practical.canvaDesignLink}
+                          <span className="text-blue-700 font-mono text-[11px] truncate block">
+                            Live App: {answers.practical.canvaDesignLink}
                           </span>
                         ) : (
-                          <span className="text-amber-700 italic">No Canva link submitted</span>
+                          <span className="text-amber-700 italic">No Live App URL submitted</span>
                         )
                       )}
                     </div>

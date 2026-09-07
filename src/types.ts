@@ -67,8 +67,9 @@ export interface ExamAnswers {
   short: Record<number, string>; // questionId -> string
   application: Record<number, Record<string, string>>; // questionId -> { fieldKey: value }
   practical: {
-    canvaDesignLink: string;
-    designNotes?: string;
+    canvaDesignLink: string; // Live Deployed Website / App URL
+    githubRepoLink?: string; // GitHub Repository / Source Code URL
+    designNotes?: string; // Technical Notes & Feature Breakdown
   };
 }
 

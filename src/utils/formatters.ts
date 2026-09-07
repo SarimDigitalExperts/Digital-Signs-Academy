@@ -115,8 +115,12 @@ export function isQuestionAnswered(question: QuestionItem, answers: ExamAnswers)
  * Compute progress summary
  */
 export function getExamCompletionStats(answers: ExamAnswers) {
-  // Written questions 1-22
-  const writtenQuestions = EXAM_QUESTIONS.filter((q) => q.id <= 22);
+  const mcqQuestions = EXAM_QUESTIONS.filter((q) => q.type === 'mcq');
+  const shortQuestions = EXAM_QUESTIONS.filter((q) => q.type === 'short');
+  const applicationQuestions = EXAM_QUESTIONS.filter((q) => q.type === 'application');
+  const practicalQuestions = EXAM_QUESTIONS.filter((q) => q.type === 'practical');
+
+  const writtenQuestions = EXAM_QUESTIONS.filter((q) => q.type !== 'practical');
   let writtenAnswered = 0;
   let mcqAnswered = 0;
   let shortAnswered = 0;
@@ -131,28 +135,27 @@ export function getExamCompletionStats(answers: ExamAnswers) {
     }
   });
 
-  const practicalTask = EXAM_QUESTIONS.find((q) => q.type === 'practical');
+  const practicalTask = practicalQuestions[0];
   const practicalAnswered = practicalTask ? isQuestionAnswered(practicalTask, answers) : false;
 
   const totalAnswered = writtenAnswered + (practicalAnswered ? 1 : 0);
-  const totalQuestionsCount = 22; // As specified in prompt: 22 written questions
-  const totalItemsCount = EXAM_QUESTIONS.length; // 23 with practical
+  const totalQuestionsCount = EXAM_QUESTIONS.length;
 
   return {
     writtenAnswered,
-    writtenTotal: 22,
+    writtenTotal: writtenQuestions.length,
     totalAnswered,
     totalQuestionsCount,
-    totalItemsCount,
-    unansweredWritten: Math.max(0, 22 - writtenAnswered),
+    totalItemsCount: EXAM_QUESTIONS.length,
+    unansweredWritten: Math.max(0, writtenQuestions.length - writtenAnswered),
     mcqAnswered,
-    mcqTotal: 15,
+    mcqTotal: mcqQuestions.length,
     shortAnswered,
-    shortTotal: 5,
+    shortTotal: shortQuestions.length,
     applicationAnswered,
-    applicationTotal: 2,
+    applicationTotal: applicationQuestions.length,
     practicalAnswered: practicalAnswered ? 1 : 0,
-    practicalTotal: 1,
+    practicalTotal: practicalQuestions.length,
   };
 }
 
@@ -193,38 +196,42 @@ export function serializeExamForFormSubmit(session: ExamSessionState): Record<st
     time_used: timeUsed,
     time_allowed: '2 Hours (120 Minutes)',
     auto_submitted: autoSubmitted ? 'Yes (Timer Expired)' : 'No (Manual Student Submission)',
-    objective_score: `${objectiveScore} / 15 Marks (Auto Graded)`,
-    manual_evaluation_status: 'Pending Instructor Review (35 Marks remaining: Short, Application, Practical)',
+    total_exam_marks: `${EXAM_METADATA.totalMarks} Marks`,
+    objective_score: `${objectiveScore} / ${EXAM_METADATA.objectiveMarks} Marks (Auto Graded)`,
+    manual_evaluation_status: `Pending Instructor Review (${EXAM_METADATA.manualMarks} Marks: Short, Application, Cafe Crave Practical)`,
   };
 
-  // Serialize MCQs (q1 - q15)
+  // Serialize MCQs (Section A)
   EXAM_QUESTIONS.filter((q) => q.type === 'mcq').forEach((q) => {
     const selected = answers.mcq[q.id];
     const isCorrect = selected === q.correctOption;
-    payload[`q${q.id}`] = `[${q.prompt}] | Selected: ${selected || 'Unanswered'} | Correct: ${q.correctOption} | Score: ${isCorrect ? '1/1' : '0/1'}`;
+    payload[`q${q.id}`] = `[${q.prompt}] | Selected: ${selected || 'Unanswered'} | Correct: ${q.correctOption} | Score: ${isCorrect ? `${q.marks}/${q.marks}` : `0/${q.marks}`}`;
   });
 
-  // Serialize Short Questions (q16 - q20)
+  // Serialize Short Questions (Section B)
   EXAM_QUESTIONS.filter((q) => q.type === 'short').forEach((q) => {
     const answer = answers.short[q.id] || 'No answer provided';
-    payload[`q${q.id}`] = `[${q.prompt}] | Answer: ${answer} | Marks: Manual Evaluation (Max 3)`;
+    payload[`q${q.id}`] = `[${q.prompt}] | Answer: ${answer} | Marks: Manual Evaluation (Max ${q.marks})`;
   });
 
-  // Serialize Application Questions (q21 - q22)
+  // Serialize Application Questions (Section C)
   EXAM_QUESTIONS.filter((q) => q.type === 'application').forEach((q) => {
     const fieldMap = answers.application[q.id] || {};
     const formattedFields = Object.entries(fieldMap)
       .map(([k, v]) => `${k.toUpperCase()}: ${v || 'None'}`)
       .join(' || ');
-    payload[`q${q.id}`] = `[${q.prompt}] | Response: ${formattedFields || 'No answer provided'} | Marks: Manual Evaluation (Max 5)`;
+    payload[`q${q.id}`] = `[${q.prompt}] | Response: ${formattedFields || 'No answer provided'} | Marks: Manual Evaluation (Max ${q.marks})`;
   });
 
-  // Serialize Practical Task
-  payload['canva_design_link'] = answers.practical.canvaDesignLink || 'No link provided';
-  if (answers.practical.designNotes) {
-    payload['practical_task_notes'] = answers.practical.designNotes;
+  // Serialize Practical Project (Section D: Cafe Crave Website + App - 100 Marks)
+  payload['cafe_crave_live_app_url'] = answers.practical.canvaDesignLink || 'No link provided';
+  if (answers.practical.githubRepoLink) {
+    payload['cafe_crave_github_repo'] = answers.practical.githubRepoLink;
   }
-  payload['practical_task_marks'] = 'Manual Evaluation (Max 10)';
+  if (answers.practical.designNotes) {
+    payload['cafe_crave_project_notes'] = answers.practical.designNotes;
+  }
+  payload['practical_project_marks'] = 'Manual Evaluation (Max 100 Marks)';
 
   return payload;
 }
