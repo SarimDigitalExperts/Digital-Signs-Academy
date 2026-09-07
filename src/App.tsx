@@ -621,7 +621,7 @@ export default function App() {
                   </div>
                   <div className="text-slate-600 space-y-1">
                     <div>Student: <strong className="text-slate-900">{session.student.fullName}</strong></div>
-                    <div>Course: <span className="text-slate-800">Digital Marketing — Batch 02</span></div>
+                    <div>Course: <span className="text-slate-800">{EXAM_METADATA.courseName}</span></div>
                     <div>Started: <span className="text-slate-800">{formatHumanDateTime(session.startTime || Date.now())}</span></div>
                   </div>
                 </div>

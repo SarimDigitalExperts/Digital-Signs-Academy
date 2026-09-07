@@ -1,6 +1,7 @@
 import React from 'react';
 import { User } from 'lucide-react';
 import { StudentInfo } from '../types';
+import { EXAM_METADATA } from '../data/examData';
 
 interface HeaderProps {
   student?: StudentInfo;
@@ -27,7 +28,7 @@ export const Header: React.FC<HeaderProps> = ({
             Digital Signs <span className="text-orange-500 font-extrabold">|</span> Academy
           </h1>
           <p className="text-[10px] text-slate-500 font-semibold tracking-widest uppercase mt-0.5">
-            {showExamMeta ? 'Digital Marketing • Batch 02 Examination' : 'Professional Examination Portal'}
+            {showExamMeta ? `${EXAM_METADATA.courseName} • ${EXAM_METADATA.examName}` : 'Professional Examination Portal'}
           </p>
         </div>
       </div>

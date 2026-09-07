@@ -170,7 +170,7 @@ export function serializeExamForFormSubmit(session: ExamSessionState): Record<st
 
   const payload: Record<string, string> = {
     // FormSubmit Config
-    _subject: `Digital Signs Academy — Digital Marketing Batch 02 Exam Submission: ${student.fullName} (${student.rollNumber})`,
+    _subject: `Digital Signs Academy — ${EXAM_METADATA.courseName} ${EXAM_METADATA.examName} Submission: ${student.fullName} (${student.rollNumber})`,
     _replyto: student.email,
     _template: 'table',
     _captcha: 'false',
@@ -186,7 +186,8 @@ export function serializeExamForFormSubmit(session: ExamSessionState): Record<st
     academy: EXAM_METADATA.academyName,
     course: EXAM_METADATA.courseName,
     batch: 'Batch 02',
-    chapter: 'Chapter 01 — Canva & Graphic Design',
+    exam: EXAM_METADATA.examName,
+    topic: EXAM_METADATA.topic,
     exam_start: startFormatted,
     exam_submission: subFormatted,
     time_used: timeUsed,

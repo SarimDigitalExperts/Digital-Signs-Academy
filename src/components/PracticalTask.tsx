@@ -67,7 +67,7 @@ export const PracticalTask: React.FC<PracticalTaskProps> = ({
 
         <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-2xs">
           <p className="text-base sm:text-lg font-extrabold text-blue-900">
-            &ldquo;Digital Marketing Batch 02 — Admissions Open&rdquo;
+            &ldquo;Vibe Coding Batch 02 — Admissions Open&rdquo;
           </p>
         </div>
 

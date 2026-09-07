@@ -54,7 +54,7 @@ export const SuccessScreen: React.FC<SuccessScreenProps> = ({ session }) => {
             Exam Submitted Successfully!
           </h2>
           <p className="text-emerald-100 text-sm sm:text-base mt-2 max-w-lg mx-auto">
-            Your Digital Marketing Batch 02 &mdash; Chapter 01 examination has been successfully submitted.
+            Your {EXAM_METADATA.courseName} &mdash; {EXAM_METADATA.examName} ({EXAM_METADATA.subtitle}) examination has been successfully submitted.
           </p>
           {autoSubmitted && (
             <span className="inline-block mt-3 px-3 py-1 rounded-md text-xs font-bold bg-white/25 text-white uppercase tracking-wider">

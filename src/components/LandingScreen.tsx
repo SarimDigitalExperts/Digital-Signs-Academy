@@ -159,8 +159,8 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
               <BookOpen className="w-5 h-5" />
             </div>
             <span className="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Subject</span>
-            <span className="text-base sm:text-lg font-bold text-slate-800">Canva Design</span>
-            <span className="text-[11px] text-slate-400">Graphic Principles</span>
+            <span className="text-base sm:text-lg font-bold text-slate-800">Vibe Coding</span>
+            <span className="text-[11px] text-slate-400">All Chapters</span>
           </div>
         </div>
 
@@ -290,7 +290,7 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
                     id="rollNumber"
                     type="text"
                     required
-                    placeholder="e.g., DM-B02-045"
+                    placeholder="e.g., VC-B02-045"
                     value={formData.rollNumber}
                     onChange={(e) => setFormData({ ...formData, rollNumber: e.target.value })}
                     onBlur={() => handleBlur('rollNumber')}
